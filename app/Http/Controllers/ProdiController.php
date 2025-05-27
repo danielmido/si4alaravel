@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fakultas;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,10 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        //
+        // panggil model prodi menggunakan eloquent
+        $prodi = Prodi::all();
+        // dd($prodi);
+        return view('prodi.index')->with('prodi', $prodi);
     }
 
     /**
@@ -20,7 +24,8 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        //
+        $fakultas = Fakultas::all();
+        return view('prodi.create', compact('fakultas'));
     }
 
     /**
@@ -28,7 +33,20 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi input
+        $input = $request->validate([
+            'nama' => 'required|unique:fakultas',
+            'singkatan' => 'required|unique:fakultas|max:5',
+            'kaprodi' => 'required',
+            'sekretaris' => 'required',
+            'fakultas_id' => 'required',
+        ]);
+
+        // simpan data ke tabel prodi
+        Prodi::create($input);
+
+        // redirect ke route prodi.index
+        return redirect()->route('prodi.index')->with('success', 'Program studi berhasil ditambahkan.');
     }
 
     /**
@@ -36,7 +54,8 @@ class ProdiController extends Controller
      */
     public function show(Prodi $prodi)
     {
-        //
+        // dd($prodi);
+        return view('prodi.show', compact('prodi'));
     }
 
     /**
@@ -60,6 +79,15 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
-        //
+        // gunakan kode dibawah jika atribut tidak muncul saat dd, dan jangan lupa hapus Model yang ada di argumen destroy()
+        // $mahasiswa = Mahasiswa::findOrFail($mahasiswa);
+        
+        // dd($mahasiswa);
+
+        // hapus data prodi
+        $prodi->delete();
+
+        // redirect ke route prodi.index
+        return redirect()->route('prodi.index')->with('success', 'Prodi berhasil dihapus.');
     }
 }

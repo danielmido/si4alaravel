@@ -23,7 +23,7 @@ class FakultasController extends Controller
      */
     public function create()
     {
-        //
+        return view('fakultas.create');
     }
 
     /**
@@ -31,38 +31,76 @@ class FakultasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi input
+        $input = $request->validate([
+            'nama' => 'required|unique:fakultas',
+            'singkatan' => 'required|unique:fakultas|max:5',
+            'dekan' => 'required',
+            'wakil_dekan' => 'required',
+        ]);
+
+        // simpan data ke tabel fakultas
+        Fakultas::create($input);
+
+        // redirect ke route fakultas.index
+        return redirect()->route('fakultas.index')->with('success', 'Fakultas berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Fakultas $fakultas)
+    public function show($fakultas)
     {
-        //
+        // Note: jika return(view....) tidak muncul atribut-nya, pakai fungsi dibawah & hilangkan model fakultas di dalam argument show
+        $fakultas = Fakultas::findOrFail($fakultas);
+        // dd($fakultas);
+        return view('fakultas.show', compact('fakultas'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fakultas $fakultas)
+    public function edit($fakultas)
     {
-        //
+        $fakultas = Fakultas::findOrFail($fakultas);
+        // dd($fakultas);
+        return view('fakultas.edit', compact('fakultas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fakultas $fakultas)
+    public function update(Request $request, $fakultas)
     {
-        //
+        $fakultas = Fakultas::findOrFail($fakultas);
+
+        // validasi input (copas dari store)
+        $input = $request->validate([
+            'nama' => 'required',
+            'singkatan' => 'required|max:5',
+            'dekan' => 'required',
+            'wakil_dekan' => 'required',
+        ]);
+
+        // update data fakultas
+        $fakultas->update($input);
+
+        // redirect ke route fakultas.index
+        return redirect()->route('fakultas.index')->with('success', 'Fakultas berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Fakultas $fakultas)
+    public function destroy($fakultas)
     {
-        //
+        $fakultas = Fakultas::findOrFail($fakultas);
+        // dd($fakultas);
+
+        // hapus data fakultas
+        $fakultas->delete();
+
+        // redirect ke route fakultas.index
+        return redirect()->route('fakultas.index')->with('success', 'Fakultas berhasil dihapus.');
     }
 }
