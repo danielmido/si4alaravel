@@ -19,7 +19,7 @@ class Jadwal extends Model
 
     public function matakuliah()
     {
-        return $this->belongsTo(Matakuliah::class, 'matakuliah_id', 'id');
+        return $this->belongsTo(Mata_kuliah::class, 'matakuliah_id', 'id');
     }
     public function users()
     {

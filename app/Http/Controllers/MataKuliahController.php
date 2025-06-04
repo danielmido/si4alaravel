@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matakuliah;
+use App\Models\Mata_kuliah;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 
@@ -41,7 +41,7 @@ class MatakuliahController extends Controller
             'prodi_id' => 'required|exists:prodi,id'
         ]);
 
-        Matakuliah::create($input);
+        Mata_kuliah::create($input);
 
         return redirect()->route('prodi.index')->with('success', 'Data prodi berhasil ditambahkan!');
     }
@@ -49,7 +49,7 @@ class MatakuliahController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Matakuliah $matakuliah)
+    public function show(Mata_kuliah $matakuliah)
     {
         //dd($matakuliah);
 
@@ -60,7 +60,7 @@ class MatakuliahController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Matakuliah $matakuliah)
+    public function edit(Mata_kuliah $matakuliah)
     {
         $prodi = Prodi::all();
         //dd($matakuliah);
@@ -71,7 +71,7 @@ class MatakuliahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Matakuliah $matakuliah)
+    public function update(Request $request, Mata_kuliah $matakuliah)
     {
         //dd($matakuliah);
 
@@ -90,7 +90,7 @@ class MatakuliahController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Matakuliah $matakuliah)
+    public function destroy(Mata_kuliah $matakuliah)
     {
         //dd($matakuliah);
         $matakuliah->delete();
