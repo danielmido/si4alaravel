@@ -90,7 +90,7 @@
                   alt="User Image" />
                 <p>
                   {{ Auth::user()->name }}
-                  <small>Dosen/Admin</small>
+                  <small>{{ strtoupper( Auth::user()->role ) }}</small>
                 </p>
               </li>
               <!--end::User Image-->

@@ -104,11 +104,8 @@
     series: [{
       name: 'Mahasiswa',
       data: [
-        @foreach($mahasiswaprodi as $item) {
-          {
-            $item - > jumlah
-          }
-        },
+        @foreach($mahasiswaprodi as $item) 
+        {{ $item -> jumlah }},
         @endforeach
       ]
     }]
