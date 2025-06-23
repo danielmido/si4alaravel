@@ -26,7 +26,7 @@
           <tbody>
             @foreach ($mahasiswa as $item)
             <tr>
-              <td style="padding: 8px;"><img src="images/{{ $item->foto }}" alt="pp" width="80px"></td>
+              <td style="padding: 8px;"><img src="{{ $item->foto }}" alt="pp" width="80px"></td>
               <td style="padding: 8px;">{{$item->npm}}</td>
               <td style="padding: 8px;">{{$item->nama}}</td>
               <td style="padding: 8px;">{{$item->jk}}</td>

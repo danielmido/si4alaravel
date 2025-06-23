@@ -23,7 +23,7 @@
               <label for="nama" class="form-label">Sesi</label>
               <input type="text" class="form-control" name="nama" value="{{ old('nama') }}">
               @error('nama')
-              <div class="text-danger"> {{ $message}}</div>
+              <div class="text-danger"> {{ $message }}</div>
               @enderror
             </div>
 

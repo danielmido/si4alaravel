@@ -29,7 +29,8 @@ class FakultasPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role == 'admin'; // only allow admins to create Fakultas
+        // only allow admins to create Fakultas
+        return $user->role == 'admin'; 
     }
 
     /**
